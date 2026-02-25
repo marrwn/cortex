@@ -2,36 +2,38 @@ import Squares from "../Squares";
 import { Button } from "../ui/button";
 import RotatingText from "../RotatingText";
 import Link from "next/link";
+import DotGrid from "../DotGrid";
 
 export default function Hero() {
   return (
     /* 'relative' allows absolute children to stay inside this section.
        'h-screen' ensures the section has a height for the Canvas to fill.
     */
-    <section className="relative w-full h-screen overflow-hidden bg-black">
+    <section className="relative w-full h-screen overflow-hidden bg-[#FFFDF2]">
       {/* 1. THE REACTIVE BACKGROUND LAYER */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <Squares
-          speed={0.5}
-          squareSize={60}
-          direction="diagonal" // up, down, left, right, diagonal
-          borderColor="#fff"
-          hoverFillColor="#222"
-          direction="diagonal"
-          borderColor="#3d3846"
-          hoverColor="#222222"
-          size={40}
+      <div className="absolute inset-0 z-0 pointer-events-none"></div>
+      {/* Background here */}
+      <div className="absolute inset-0 z-0">
+        <DotGrid
+          dotSize={5}
+          gap={15}
+          baseColor="#feffea"
+          activeColor="#E3a018"
+          proximity={120}
+          shockRadius={250}
+          shockStrength={5}
+          resistance={750}
+          returnDuration={1.5}
         />
       </div>
-
       {/* 2. THE CONTENT LAYER */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full">
-        <h1 className="text-white text-7xl font-bold text-center">
+        <h1 className="text-black text-7xl font-bold text-center">
           Learn Javascript
         </h1>
         <RotatingText
           texts={["Effectively", "Better", "Right"]}
-          mainClassName="px-2 sm:px-2 md:px-3 bg-transparent text-white text-7xl font-bold overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+          mainClassName="px-2 sm:px-2 md:px-3 bg-[#fed170] mt-4 text-black text-7xl font-bold overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
           staggerFrom={"last"}
           initial={{ y: "100%" }}
           animate={{ y: 0 }}
@@ -42,11 +44,21 @@ export default function Hero() {
           rotationInterval={2000}
         />
         {/* Button Container */}
-        <div className="flex flex-col sm:flex-row gap-6 justify-center w-full max-w-2xl">
+        <div className="flex flex-col sm:flex-row gap-8 mt-10 justify-center items-center">
           {/* Start Learning - Extra Large White Button */}
           <Button
-            size="sm"
-            className="bg-white text-black hover:bg-gray-200 text-xl font-bold py-8 px-12 rounded-2xl shadow-2xl transition-transform hover:scale-105 cursor-pointer"
+            variant="secondary"
+            size="lg"
+            className="
+                    text-3xl py-8 px-10
+                  bg-[#fed170] text-black
+                  rounded-2xl border-4 border-black
+                  shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]
+                  hover:translate-x-[2px] hover:translate-y-[2px]
+                  hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]
+                  active:translate-x-[8px] active:translate-y-[8px]
+                  active:shadow-none
+                  transition-all "
           >
             <Link href="/learn"> Start Learning</Link>
           </Button>
@@ -54,8 +66,17 @@ export default function Hero() {
           {/* View Lessons - Extra Large Outline Button */}
           <Button
             variant="outline"
-            size="sm"
-            className="bg-white/10 text-white text-xl font-bold py-8 px-12 rounded-2xl backdrop-blur-sm transition-transform hover:scale-105 cursor-pointer"
+            size="lg"
+            className="
+                    text-3xl py-8 px-10
+                  bg-[#daf5f0] text-black
+                  rounded-2xl border-4 border-black
+                  shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]
+                  hover:translate-x-[2px] hover:translate-y-[2px]
+                  hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]
+                  active:translate-x-[8px] active:translate-y-[8px]
+                  active:shadow-none
+                  transition-all cursor-pointer"
           >
             View Lessons
           </Button>

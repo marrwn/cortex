@@ -4,6 +4,7 @@ const SpotlightCard = ({
   children,
   className = "",
   spotlightColor = "rgba(255, 255, 255, 0.25)",
+  bgColor = "bg-[#FFFDF2]", // Added bgColor prop with your creamy default
 }) => {
   const divRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
@@ -43,7 +44,11 @@ const SpotlightCard = ({
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative rounded-3xl border border-neutral-800 bg-neutral-900 overflow-hidden p-8 ${className}`}
+      /* 1. Replaced bg-neutral-900 with {bgColor}
+         2. Changed border to border-4 border-black
+         3. Added the hard Neubrutalist shadow
+      */
+      className={`relative rounded-2xl border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] overflow-hidden p-8 transition-all ${bgColor} ${className}`}
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out"
@@ -52,7 +57,8 @@ const SpotlightCard = ({
           background: `radial-gradient(circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 80%)`,
         }}
       />
-      {children}
+      {/* Ensure children (text) are black for the light background */}
+      <div className="relative z-10 text-black">{children}</div>
     </div>
   );
 };
