@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 
-const MonacoEditor = lazy(() => import("@monaco-editor"));
+const MonacoEditor = lazy(() => import("monaco-editor"));
 
 interface CodeEditorProps {
   value: string;
