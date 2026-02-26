@@ -68,21 +68,21 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                name: "DEV_01",
-                role: "Lead Architect",
+                name: "Marrwn",
+                role: "FullStak - AI Developer",
                 bio: "Full-stack specialist focusing on Egyptian EdTech infrastructure and system design.",
                 color: "#B191FF",
               },
               {
-                name: "DEV_02",
-                role: "UI/UX Brutalist",
-                bio: "Designer responsible for the high-contrast, zero-fluff visual engine and CSS architecture.",
+                name: "Joe",
+                role: "Developer",
+                bio: "Expert in translating Sec 1 Ministry curriculum into actionable, interactive code modules.",
                 color: "#90ee90",
               },
               {
-                name: "DEV_03",
+                name: "Mohamed",
                 role: "Content Lead",
-                bio: "Expert in translating Sec 1 Ministry curriculum into actionable, interactive code modules.",
+                bio: "Our Designer in poster, stories, etc",
                 color: "#F7DF1E",
               },
             ].map((dev, i) => (
