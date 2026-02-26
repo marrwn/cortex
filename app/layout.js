@@ -18,8 +18,8 @@ const pixelify = Pixelify_Sans({
 });
 
 export const metadata = {
-  title: "Cortex System",
-  description: "Advanced Learning Engine",
+  title: "Cortex",
+  description: "Learn Coding In Simple Way",
 };
 
 export default function RootLayout({ children }) {
