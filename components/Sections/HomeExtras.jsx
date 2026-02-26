@@ -36,7 +36,7 @@ const HomeExtras = () => {
             <p className="font-bold text-black text-lg mb-4">
               "We're tired of seeing students struggle with outdated PDFs."
             </p>
-            <p className="text-neutral-600 leading-relaxed">
+            <p className="text-black leading-relaxed">
               Cortex isn't a corporation. It's a sprint by three developers to
               prove that Egyptian education can be high-tech, high-contrast, and
               completely free. We are currently in the{" "}
@@ -49,7 +49,7 @@ const HomeExtras = () => {
               The Mission <br />{" "}
               <span className="text-[#B191FF]">is Simple.</span>
             </h2>
-            <ul className="space-y-4">
+            <ul className="space-y-4 text-black font-bold">
               {["No Gatekeeping", "No Paywalls", "Pure Code"].map((item, i) => (
                 <li
                   key={i}

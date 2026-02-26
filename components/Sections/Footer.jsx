@@ -34,7 +34,7 @@ const Footer = () => {
             <div className="flex gap-4">
               <Link
                 href="#"
-                className="p-2 border-2 border-black bg-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
+                className="p-2 border-2 border-black  bg-[#87ceeb] shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
               >
                 <Github size={20} />
               </Link>
@@ -62,7 +62,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/"
-                  className="hover:text-[#B191FF] flex items-center gap-1"
+                  className="hover:text-[#B191FF] flex items-center gap-1 text-black"
                 >
                   Home <ArrowUpRight size={14} />
                 </Link>
@@ -70,7 +70,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/learn"
-                  className="hover:text-[#90ee90] flex items-center gap-1"
+                  className="hover:text-[#90ee90] flex items-center gap-1 text-black"
                 >
                   Classroom <ArrowUpRight size={14} />
                 </Link>
@@ -78,7 +78,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/about"
-                  className="hover:text-[#F7DF1E] flex items-center gap-1"
+                  className="hover:text-[#F7DF1E] flex items-center gap-1 text-black"
                 >
                   Our Story <ArrowUpRight size={14} />
                 </Link>
@@ -86,7 +86,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/contribute"
-                  className="hover:text-[#ff7a5c] flex items-center gap-1"
+                  className="hover:text-[#ff7a5c] flex items-center gap-1 text-black"
                 >
                   Contribute <ArrowUpRight size={14} />
                 </Link>

@@ -10,6 +10,7 @@ import Link from "next/link";
 import CodePreview from "@/components/Sections/CodePreview";
 import HomeExtras from "@/components/Sections/HomeExtras";
 import Footer from "@/components/Sections/Footer";
+import ChatWidget from "@/components/ChatWidget";
 
 const items = [
   {
@@ -68,6 +69,7 @@ export default function Home() {
       <CodePreview />
       <HomeExtras />
       <Footer />
+      <ChatWidget />
     </div>
   );
 }

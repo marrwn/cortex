@@ -1,11 +1,13 @@
-import nextra from "nextra";
+import createMDX from "@next/mdx";
 
-// Set up Nextra with its configuration
-const withNextra = nextra({
-  // ... Add Nextra-specific options here
-});
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
+  // This allows Turbopack to handle MDX natively
+  experimental: {
+    mdxRs: true,
+  },
+};
 
-// Export the final Next.js config with Nextra included
-export default withNextra({
-  // ... Add regular Next.js options here
-});
+const withMDX = createMDX({});
+export default withMDX(nextConfig);

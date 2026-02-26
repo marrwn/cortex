@@ -47,7 +47,7 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-8 mt-10 justify-center items-center">
           {/* Start Learning - Extra Large White Button */}
           <Button
-            variant="secondary"
+            variant="default"
             size="lg"
             className="
                     text-3xl py-8 px-10
@@ -65,11 +65,11 @@ export default function Hero() {
 
           {/* View Lessons - Extra Large Outline Button */}
           <Button
-            variant="outline"
+            variant="default"
             size="lg"
             className="
                     text-3xl py-8 px-10
-                  bg-[#daf5f0] text-black
+                  bg-[#daf5f2] text-black
                   rounded-2xl border-4 border-black
                   shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]
                   hover:translate-x-[2px] hover:translate-y-[2px]

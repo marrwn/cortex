@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+    --color-background: #fffdf2; /* Light mode: Cream */
+    --color-foreground: #0c0c0c;
+    --color-card: #ffffff;
+    --color-border: #e2e8f0;
+    --color-primary: #b191ff;
+}
+
+/* DEEP DARK THEME */
+.dark {
+    --color-background: #0d0d0e; /* Obsidian Base */
+    --color-foreground: #ececed;
+    --color-card: #141415; /* Elevated Obsidian */
+    --color-border: #262626;
+    --color-primary: #c4adff;
+    --color-muted: #1a1a1b;
+}
+
+@layer base {
+    body {
+        background-color: var(--color-background);
+        color: var(--color-foreground);
+    }
+}
+
+/* Heading Fix for MDX */
+.prose h1 {
+    font-family: var(--font-pixel);
+    @apply text-6xl font-black uppercase mb-12 tracking-tighter;
+}
+
+.prose h2 {
+    font-family: var(--font-pixel);
+    @apply text-3xl font-black uppercase mt-16 mb-6 pb-2 border-b-4 border-foreground;
+}
