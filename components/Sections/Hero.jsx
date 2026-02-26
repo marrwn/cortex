@@ -17,7 +17,7 @@ export default function Hero() {
         <DotGrid
           dotSize={5}
           gap={15}
-          baseColor="#feffea"
+          baseColor="#fae5b6"
           activeColor="#E3a018"
           proximity={120}
           shockRadius={250}
@@ -29,7 +29,7 @@ export default function Hero() {
       {/* 2. THE CONTENT LAYER */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full">
         <h1 className="text-black text-7xl font-bold text-center">
-          Learn Javascript
+          Learn Programming
         </h1>
         <RotatingText
           texts={["Effectively", "Better", "Right"]}
@@ -60,7 +60,7 @@ export default function Hero() {
                   active:shadow-none
                   transition-all "
           >
-            <Link href="/learn"> Start Learning</Link>
+            <Link href="/courses"> Start Learning</Link>
           </Button>
 
           {/* View Lessons - Extra Large Outline Button */}
@@ -78,7 +78,7 @@ export default function Hero() {
                   active:shadow-none
                   transition-all cursor-pointer"
           >
-            View Lessons
+            <Link href="/about">About Us</Link>
           </Button>
         </div>
       </div>
