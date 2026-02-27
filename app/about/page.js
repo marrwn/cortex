@@ -210,7 +210,7 @@ export default function AboutPage() {
 
         {/* --- PROJECT TIMELINE --- */}
         <section className="border-4 border-black bg-white rounded-[40px] p-10 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
-          <h3 className="font-pixel text-3xl mb-10 uppercase">
+          <h3 className="font-pixel text-black text-3xl mb-10 uppercase">
             Project Timeline
           </h3>
           <div className="space-y-8 relative">
