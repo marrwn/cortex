@@ -1,0 +1,71 @@
+import { CortexCallout } from "@/components/LessonUI/CortexCallout";
+import { ConceptCard } from "@/components/LessonUI/ConceptCard";
+import { Playground } from "@/components/LessonUI/Playground";
+import CodeBlock from "@/components/LessonUI/CodeBlock";
+import AnalogyCard from "@/components/LessonUI/AnalogyCard";
+import  VideoEmbed  from "@/components/LessonUI/VideoEmbed";
+
+# 7. Putting It All Together: `console.table()` 📊
+
+`console.table()` displays data in a beautiful table format. Perfect for organized output.
+
+<CodeBlock
+  fileName="tables.js"
+  code={`// Array as a table
+console.table(["Cairo", "Alexandria", "Luxor", "Aswan"]);
+
+// Array of objects — the real power!
+console.table([
+  { city: "Cairo", population: "10M", famous: "Pyramids" },
+  { city: "Alexandria", population: "5M", famous: "Library" },
+  { city: "Luxor", population: "1.3M", famous: "Karnak Temple" }
+]);
+
+// Single object
+console.table({
+  name: "Koshary Abou Tarek",
+  location: "Downtown Cairo",
+  rating: 4.5,
+  priceRange: "15-35 LE"
+});`}
+/>
+
+# Practice: The Data Display 👇
+
+<Playground
+  config={{
+    id: "data-display",
+    template: "vanilla",
+    icon: "📊",
+    description: "Display Data with console.table",
+    mainFile: "/index.js",
+    files: {
+      "/index.js": `// 🎯 Task 1: Display your top 5 favorite Egyptian foods as a table
+console.table(["Food 1", "Food 2", "Food 3", "Food 4", "Food 5"]);
+
+// 🎯 Task 2: Display a table of 3 Egyptian cities with their info
+console.table([
+  { city: "Cairo", population: "10M", landmark: "Pyramids" },
+  // Add 2 more cities...
+]);
+
+// 🎯 Task 3: Display your personal profile as a table
+console.table({
+  name: "Your name",
+  age: 0,
+  city: "Your city",
+  favoriteFood: "Your food",
+  hobby: "Your hobby"
+});
+
+// 🎯 Task 4: Create a menu table for a restaurant
+// Each item should have: name, price, category
+console.table([
+  { name: "Koshari", price: 25, category: "Main" },
+  // Add 4 more items...
+]);`
+    }
+  }}
+/>
+
+---

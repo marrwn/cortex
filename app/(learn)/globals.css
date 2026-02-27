@@ -1,37 +1,32 @@
-@import "tailwindcss";
-
-@theme {
-    --color-background: #fffdf2; /* Light mode: Cream */
-    --color-foreground: #0c0c0c;
-    --color-card: #ffffff;
-    --color-border: #e2e8f0;
-    --color-primary: #b191ff;
+/* Ensure the app container takes exactly the screen height and doesn't scroll */
+.app-container {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
 }
 
-/* DEEP DARK THEME */
-.dark {
-    --color-background: #0d0d0e; /* Obsidian Base */
-    --color-foreground: #ececed;
-    --color-card: #141415; /* Elevated Obsidian */
-    --color-border: #262626;
-    --color-primary: #c4adff;
-    --color-muted: #1a1a1b;
+/* Make the sidebar a static pillar */
+.sidebar-fixed {
+    height: 100%;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
 }
 
-@layer base {
-    body {
-        background-color: var(--color-background);
-        color: var(--color-foreground);
-    }
+/* Force the main content to be the only scrollable area */
+.main-scrollable {
+    flex-grow: 1;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
-/* Heading Fix for MDX */
-.prose h1 {
-    font-family: var(--font-pixel);
-    @apply text-6xl font-black uppercase mb-12 tracking-tighter;
+/* Hide scrollbar but keep functionality for the sidebar */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
 }
-
-.prose h2 {
-    font-family: var(--font-pixel);
-    @apply text-3xl font-black uppercase mt-16 mb-6 pb-2 border-b-4 border-foreground;
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }

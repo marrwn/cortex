@@ -1,0 +1,84 @@
+import { CortexCallout } from "@/components/LessonUI/CortexCallout";
+import { ConceptCard } from "@/components/LessonUI/ConceptCard";
+import { Playground } from "@/components/LessonUI/Playground";
+import CodeBlock from "@/components/LessonUI/CodeBlock";
+import AnalogyCard from "@/components/LessonUI/AnalogyCard";
+import  VideoEmbed  from "@/components/LessonUI/VideoEmbed";
+
+# 6. Multi-Line Output & Special Characters 📄
+
+Sometimes you need to print **multiple lines** or include special characters.
+
+<CodeBlock
+  fileName="multiline.js"
+  code={`// Method 1: Multiple console.log calls
+console.log("Line 1");
+console.log("Line 2");
+console.log("Line 3");
+
+// Method 2: The newline character \\n
+console.log("Line 1\\nLine 2\\nLine 3");
+
+// Method 3: Template literals (backticks) — BEST WAY
+console.log(\`Line 1
+Line 2
+Line 3\`);
+
+// Special characters
+console.log("He said \\"Hello!\\"");    // He said "Hello!"
+console.log("Tab\\there");              // Tab    here
+console.log("Back\\\\slash");           // Back\slash
+
+// Building a box
+console.log("╔══════════════╗");
+console.log("║  WELCOME!    ║");
+console.log("╚══════════════╝");`}
+/>
+
+# Practice: The ASCII Art Printer 👇
+
+<Playground
+  config={{
+    id: "ascii-art",
+    template: "vanilla",
+    icon: "🎨",
+    description: "Multi-Line Console Art",
+    mainFile: "/index.js",
+    files: {
+      "/index.js": `// 🎯 Task 1: Print this pyramid using multiple console.logs
+//     *
+//    ***
+//   *****
+//  *******
+console.log("    *");
+console.log("   ***");
+// Continue...
+
+// 🎯 Task 2: Print the same pyramid using ONE console.log with \\n
+console.log("    *\\n   ***");
+// Continue...
+
+// 🎯 Task 3: Print this Egyptian flag emoji art
+// 🟥🟥🟥🟥🟥
+// ⬜⬜⬜⬜⬜
+// ⬛⬛⬛⬛⬛
+// Your code here...
+
+// 🎯 Task 4: Print a welcome banner inside a box
+// ┌─────────────────────┐
+// │   Welcome to Giza!  │
+// │   🐪 Pyramids Tour  │
+// │   Price: 200 LE     │
+// └─────────────────────┘
+// Your code here...
+
+// 🎯 Task 5: Print a dialogue with quotes inside
+// Ahmed said: "Let's get koshari!"
+// Sara replied: "I prefer shawarma!"
+// Hint: use \\" to put quotes inside a string
+// Your code here...`
+    }
+  }}
+/>
+
+---

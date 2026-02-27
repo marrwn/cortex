@@ -1,0 +1,56 @@
+import { CortexCallout } from "@/components/LessonUI/CortexCallout";
+import { ConceptCard } from "@/components/LessonUI/ConceptCard";
+import { Playground } from "@/components/LessonUI/Playground";
+import CodeBlock from "@/components/LessonUI/CodeBlock";
+import AnalogyCard from "@/components/LessonUI/AnalogyCard";
+import  VideoEmbed  from "@/components/LessonUI/VideoEmbed";
+
+# Logging Multiple Things
+
+You can print **multiple values** in one `console.log()` by separating them with commas.
+
+<CodeBlock
+  fileName="multiple-logs.js"
+  code={`// Multiple values in one line
+console.log("Name:", "Ahmed", "Age:", 25);
+// Output: Name: Ahmed Age: 25
+
+// Logging math results
+console.log("5 + 3 =", 5 + 3);
+// Output: 5 + 3 = 8
+
+// Mixing text, numbers, and booleans
+console.log("Koshari costs", 25, "LE", "- Delicious?", true);
+// Output: Koshari costs 25 LE - Delicious? true`}
+/>
+
+# Practice: The Introduction Machine 👇
+
+<Playground
+  config={{
+    id: "intro-machine",
+    template: "vanilla",
+    icon: "👋",
+    description: "Multi-Value Logging",
+    mainFile: "/index.js",
+    files: {
+      "/index.js": `// 🎯 Task 1: Print your name and age in ONE console.log
+console.log("Name:", "???", "Age:", 0);
+
+// 🎯 Task 2: Print a food item and its price
+console.log("Foul Sandwich:", "???", "LE");
+
+// 🎯 Task 3: Print a math problem and its answer
+console.log("10 + 15 =", 10 + 15);
+
+// 🎯 Task 4: Create your own — print 4 different things in one line
+// Your code here...
+
+// 🎯 Task 5: Print this exact output (copy it character by character):
+// Welcome to Cairo! Population: 10000000 Sunny: true
+// Your code here...`
+    }
+  }}
+/>
+
+---

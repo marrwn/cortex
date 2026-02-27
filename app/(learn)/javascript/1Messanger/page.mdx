@@ -1,0 +1,68 @@
+import { CortexCallout } from "@/components/LessonUI/CortexCallout";
+import { ConceptCard } from "@/components/LessonUI/ConceptCard";
+import { Playground } from "@/components/LessonUI/Playground";
+import CodeBlock from "@/components/LessonUI/CodeBlock";
+import AnalogyCard from "@/components/LessonUI/AnalogyCard";
+import  VideoEmbed  from "@/components/LessonUI/VideoEmbed";
+
+# Chapter 1: The Messenger 📢
+
+### How to Talk to the Machine — and Make It Talk Back.
+
+---
+
+<AnalogyCard title="The Microphone" emoji="🎤" color="#F7DF1E">
+  You know when someone grabs the microphone at a wedding in Egypt and says **"أهلاً بيكم يا جماعة!"**? 
+  Everyone hears the message. `console.log()` is your **microphone** — it lets you shout a message 
+  to the screen so you (the developer) can see what's happening inside your code.
+</AnalogyCard>
+
+<CortexCallout type="info">
+  **This chapter's rule:** 20% reading, 80% coding. Every section has a playground. 
+  **Don't just read — TYPE the code, change it, break it, fix it.** That's how you learn.
+</CortexCallout>
+
+---
+
+## 1. Your First Words: `console.log()` 🗣️
+
+`console.log()` prints a message to the **console** (the developer's screen). It's the most important debugging tool you'll ever use.
+
+<CodeBlock
+  fileName="first-words.js"
+  code={`// This is how you talk to the machine
+console.log("Hello, World!");
+console.log("أهلاً بالعالم!");`}
+/>
+
+That's it. Put whatever you want inside the parentheses and quotes, and it shows up on screen.
+
+### Try It NOW 👇
+
+<Playground
+  config={{
+    id: "first-log",
+    template: "vanilla",
+    icon: "🗣️",
+    description: "Your First console.log",
+    mainFile: "/index.js",
+    files: {
+      "/index.js": `// 🎯 Task 1: Print your name
+console.log("Your name here");
+
+// 🎯 Task 2: Print your favorite Egyptian food
+console.log("Your food here");
+
+// 🎯 Task 3: Print the name of your city
+console.log("Your city here");
+
+// 🎯 Task 4: Print a number (no quotes needed!)
+console.log(42);
+
+// 🎯 Task 5: Print true or false — are you a morning person?
+console.log(true);`
+    }
+  }}
+/>
+
+---

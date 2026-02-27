@@ -1,0 +1,159 @@
+import { CortexCallout } from "@/components/LessonUI/CortexCallout";
+import { ConceptCard } from "@/components/LessonUI/ConceptCard";
+import { Playground } from "@/components/LessonUI/Playground";
+import CodeBlock from "@/components/LessonUI/CodeBlock";
+import AnalogyCard from "@/components/LessonUI/AnalogyCard";
+import  VideoEmbed  from "@/components/LessonUI/VideoEmbed";
+
+# 4. Arithmetic: JavaScript is a Calculator 🧮
+
+JavaScript can do math. No imports, no setup — just type the math.
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+  <ConceptCard
+    category="Basic"
+    title="+ − × ÷"
+    description="Addition (+), Subtraction (-), Multiplication (*), Division (/). Just like your school calculator."
+  />
+  <ConceptCard
+    category="Special"
+    title="% (Remainder)"
+    description="Modulo gives you the REMAINDER after division. 10 % 3 = 1 because 10 ÷ 3 = 3 remainder 1."
+  />
+  <ConceptCard
+    category="Power"
+    title="** (Exponent)"
+    description="Raises a number to a power. 2 ** 3 = 8 because 2 × 2 × 2 = 8."
+  />
+</div>
+
+<CodeBlock
+  fileName="arithmetic.js"
+  code={`// Basic operations
+console.log(10 + 5);   // 15  — Addition
+console.log(10 - 5);   // 5   — Subtraction
+console.log(10 * 5);   // 50  — Multiplication
+console.log(10 / 5);   // 2   — Division
+
+// The remainder operator (%)
+console.log(10 % 3);   // 1   — 10 ÷ 3 = 3 remainder 1
+console.log(15 % 5);   // 0   — 15 ÷ 5 = 3 remainder 0 (divides evenly!)
+console.log(7 % 2);    // 1   — 7 is odd (remainder 1)
+console.log(8 % 2);    // 0   — 8 is even (remainder 0)
+
+// Exponents (**)
+console.log(2 ** 3);   // 8   — 2 × 2 × 2
+console.log(5 ** 2);   // 25  — 5 × 5
+console.log(10 ** 6);  // 1000000 — one million!
+
+// Order of operations (PEMDAS / BODMAS)
+console.log(2 + 3 * 4);     // 14  — multiplication first!
+console.log((2 + 3) * 4);   // 20  — parentheses force addition first`}
+/>
+
+# Practice: The Egyptian Math Challenge 👇
+
+<Playground
+  config={{
+    id: "math-challenge",
+    template: "vanilla",
+    icon: "🧮",
+    description: "JavaScript Calculator",
+    mainFile: "/index.js",
+    files: {
+      "/index.js": `// 🎯 Task 1: Calculate the total cost of 3 Koshari bowls at 25 LE each
+console.log("3 Koshari bowls:", 3 * 25, "LE");
+
+// 🎯 Task 2: You have 100 LE. You buy 3 teas at 10 LE each.
+// How much money is LEFT?
+console.log("Money left:", "???");
+
+// 🎯 Task 3: Split a 180 LE dinner bill between 4 friends
+console.log("Each person pays:", "???", "LE");
+
+// 🎯 Task 4: Is 15 an odd or even number? 
+// Hint: if number % 2 equals 0 → even, if 1 → odd
+console.log("15 % 2 =", 15 % 2, "so 15 is odd");
+
+// 🎯 Task 5: Calculate the area of the Great Pyramid base
+// It's approximately 230 meters × 230 meters
+console.log("Pyramid base area:", "???", "square meters");
+
+// 🎯 Task 6: A metro ticket costs 8 LE. 
+// You ride it twice a day, 6 days a week.
+// What's your weekly metro cost?
+console.log("Weekly metro cost:", "???", "LE");
+
+// 🎯 Task 7: Order of operations challenge!
+// What does this print? GUESS first, then run it.
+console.log(100 - 20 * 3 + 10);
+// Your guess: ???`
+    }
+  }}
+/>
+
+---
+
+# Useful Trick: Remainder for Real Life
+
+The `%` operator seems weird, but it's incredibly useful.
+
+<CodeBlock
+  fileName="remainder-tricks.js"
+  code={`// Trick 1: Check if a number is EVEN or ODD
+console.log(4 % 2);   // 0 → EVEN ✅
+console.log(7 % 2);   // 1 → ODD
+console.log(100 % 2); // 0 → EVEN ✅
+console.log(33 % 2);  // 1 → ODD
+
+// Trick 2: Get the last digit of any number
+console.log(2025 % 10);  // 5  — last digit
+console.log(187 % 10);   // 7  — last digit
+console.log(40 % 10);    // 0  — last digit
+
+// Trick 3: Check if a number divides evenly
+console.log(15 % 5);  // 0 → 15 is divisible by 5 ✅
+console.log(15 % 4);  // 3 → 15 is NOT divisible by 4
+console.log(100 % 25); // 0 → divisible ✅`}
+/>
+
+# Practice: The Remainder Master 👇
+
+<Playground
+  config={{
+    id: "remainder-master",
+    template: "vanilla",
+    icon: "🔢",
+    description: "Mastering the % Operator",
+    mainFile: "/index.js",
+    files: {
+      "/index.js": `// 🎯 Task 1: Check if 42 is even or odd
+console.log("42 % 2 =", 42 % 2, "→ even or odd?");
+
+// 🎯 Task 2: Check if 99 is even or odd
+console.log("99 % 2 =", "???");
+
+// 🎯 Task 3: What's the last digit of 2025?
+console.log("Last digit of 2025:", "???");
+
+// 🎯 Task 4: Can you split 23 people into groups of 5 evenly?
+// If remainder is 0 → yes, otherwise → no
+console.log("23 % 5 =", 23 % 5, "→ leftover people!");
+
+// 🎯 Task 5: An Egyptian minibus (microbus) seats 14 people.
+// You have 50 people. How many will be left waiting?
+console.log("People left waiting:", "???");
+
+// 🎯 Task 6: It's minute 750 of the day. What hour is that?
+// Hint: divide by 60 and ignore the remainder
+// What minute within that hour? Use %
+console.log("Hour:", Math.floor(750 / 60), "Minute:", 750 % 60);
+
+// 🎯 BONUS: Is the year 2024 a leap year?
+// A year is a leap year if divisible by 4
+console.log("2024 % 4 =", 2024 % 4, "→ Leap year?");`
+    }
+  }}
+/>
+
+---

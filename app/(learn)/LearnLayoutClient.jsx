@@ -1,152 +1,183 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Sun,
-  Moon,
-  ArrowLeft,
-  ArrowRight,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, Sun, Moon, Menu, X } from "lucide-react";
 import SyllabusItem from "@/components/SyllabusItem.jsx";
 import ChatWidget from "@/components/ChatWidget";
 
-export default function LearnLayoutClient({ children, syllabusData }) {
+export default function LearnLayoutClient({ children, syllabusData = [] }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => setMounted(true), []);
+  useEffect(() => setIsMobileMenuOpen(false), [pathname]);
 
-  // --- NAVIGATION LOGIC ---
-  const getFlatPages = (items) => {
-    let flat = [];
-    items.forEach((item) => {
-      // Every folder or MDX file we found in the engine is a valid page
-      if (item.href) {
-        flat.push({ title: item.title, href: item.href });
-      }
-      if (item.children && item.children.length > 0) {
-        flat = [...flat, ...getFlatPages(item.children)];
-      }
-    });
+  const pages = useMemo(() => {
+    const flat = [];
+    const flatten = (items) => {
+      if (!Array.isArray(items)) return;
+      items.forEach((item) => {
+        if (item?.href) flat.push({ title: item.title, href: item.href });
+        if (item?.children) flatten(item.children);
+      });
+    };
+    flatten(syllabusData);
     return flat;
-  };
-
-  const pages = getFlatPages(syllabusData);
-  const normalizedPath = pathname.replace(/\/$/, "");
-  const currentIndex = pages.findIndex(
-    (p) => p.href.replace(/\/$/, "") === normalizedPath,
-  );
-
-  const prevPage = currentIndex > 0 ? pages[currentIndex - 1] : null;
-  const nextPage =
-    currentIndex < pages.length - 1 ? pages[currentIndex + 1] : null;
+  }, [syllabusData]);
 
   if (!mounted) return null;
 
-  return (
-    <div className="flex min-h-screen bg-background text-foreground transition-colors duration-300">
-      {/* SIDEBAR */}
-      <aside
-        className={`relative flex flex-col border-r border-border bg-card transition-all duration-500 ${isCollapsed ? "w-20" : "w-72"}`}
-      >
-        {/* LOGO: Swaps based on theme, Clickable to Home */}
-        <Link
-          href="/"
-          className="h-32 flex items-center justify-center p-4 hover:scale-95 transition-transform"
-        >
-          <Image
-            src={theme === "dark" ? "/cortex2.svg" : "/cortex.svg"}
-            alt="Cortex"
-            width={isCollapsed ? 45 : 180}
-            height={60}
-            priority
-          />
-        </Link>
+  const currentIndex = pages.findIndex(
+    (p) => p.href.replace(/\/$/, "") === pathname.replace(/\/$/, ""),
+  );
+  const prevPage = pages[currentIndex - 1];
+  const nextPage = pages[currentIndex + 1];
 
-        {/* NAVIGATION */}
-        <div
-          className={`flex-1 overflow-y-auto px-4 py-4 ${isCollapsed ? "opacity-0 invisible" : "opacity-100 visible"}`}
-        >
-          {syllabusData.map((item, i) => (
-            <SyllabusItem key={i} item={item} />
-          ))}
+  return (
+    <div className="flex h-screen w-screen overflow-hidden bg-[#FFFDF2] dark:bg-[#121212] text-foreground transition-colors duration-300 font-sans">
+      {/* 1. MOBILE HEADER */}
+      {!isMobileMenuOpen && (
+        <header className="md:hidden fixed top-0 left-0 right-0 flex items-center justify-between p-4 border-b-4 border-foreground bg-[#FFFDF2] dark:bg-[#121212] z-[50]">
+          <Link href="/">
+            <Image
+              src={theme === "dark" ? "/cortex2.svg" : "/cortex.svg"}
+              alt="Logo"
+              width={120}
+              height={32}
+              className="h-auto"
+            />
+          </Link>
+          <button
+            onClick={() => setIsMobileMenuOpen(true)}
+            className="p-2 border-2 border-foreground rounded-lg bg-[#a370f7] shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
+          >
+            <Menu
+              size={24}
+              color={theme === "dark" ? "white" : "black"}
+              strokeWidth={3}
+            />
+          </button>
+        </header>
+      )}
+
+      {/* 2. SIDEBAR */}
+      <aside
+        className={`
+        fixed md:relative inset-y-0 left-0 z-[100] bg-[#FFFDF2] dark:bg-[#121212] border-r-4 border-foreground flex flex-col h-full transition-all duration-300
+        ${isMobileMenuOpen ? "translate-x-0 w-[85%] sm:w-80" : "-translate-x-full md:translate-x-0"}
+        ${isCollapsed ? "md:w-20" : "md:w-80"}
+      `}
+      >
+        <div className="flex h-24 items-center justify-center border-b-2 border-foreground/10 shrink-0 overflow-hidden">
+          <Link href="/">
+            <Image
+              src={theme === "dark" ? "/cortex2.svg" : "/cortex.svg"}
+              alt="Logo"
+              width={isCollapsed ? 40 : 160}
+              height={40}
+              className="transition-all min-w-[40px]"
+            />
+          </Link>
         </div>
 
-        {/* BOTTOM UTILS - SIDE BY SIDE */}
+        {(isMobileMenuOpen || !isCollapsed) && (
+          <nav className="flex-1 overflow-y-auto p-6 space-y-4 scrollbar-hide">
+            {syllabusData.map((item, i) => (
+              <SyllabusItem key={i} item={item} />
+            ))}
+          </nav>
+        )}
+
+        {/* 🔹 BUTTON STACK LOGIC 🔹 */}
         <div
-          className={`p-6 border-t border-border flex items-center justify-center gap-4 ${isCollapsed ? "flex-col" : "flex-row"}`}
+          className={`p-4 border-t-4 border-foreground bg-[#FFFDF2] dark:bg-[#121212] flex shrink-0 items-center gap-3
+          ${isCollapsed || isMobileMenuOpen ? "flex-col" : "flex-row"} transition-all`}
         >
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="p-3 rounded-xl hover:bg-muted text-muted-foreground transition-all"
+            className="w-full h-12 border-2 border-foreground rounded-xl flex items-center justify-center bg-white dark:bg-zinc-800 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)] active:shadow-none transition-all"
           >
-            {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+            {theme === "dark" ? (
+              <Sun size={20} className="text-yellow-400" />
+            ) : (
+              <Moon size={20} />
+            )}
           </button>
 
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-3 rounded-xl hover:bg-muted text-muted-foreground transition-all"
+            className="hidden md:flex w-full h-12 border-2 border-foreground rounded-xl items-center justify-center bg-white dark:bg-zinc-800 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)] active:shadow-none transition-all"
           >
             {isCollapsed ? (
-              <ChevronRight size={24} />
+              <ChevronRight size={20} />
             ) : (
-              <ChevronLeft size={24} />
+              <ChevronLeft size={20} />
             )}
           </button>
+
+          {isMobileMenuOpen && (
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="md:hidden w-full h-12 border-2 border-foreground rounded-xl flex items-center justify-center bg-white dark:bg-zinc-800 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+            >
+              <X size={20} />
+            </button>
+          )}
         </div>
       </aside>
 
-      {/* MAIN CONTENT AREA */}
-      <main className="flex-1 h-screen overflow-y-auto flex flex-col">
-        <div className="max-w-4xl mx-auto w-full p-8 lg:p-16 flex-1 flex flex-col">
-          <article className="prose prose-neutral dark:prose-invert max-w-none flex-1">
+      {/* 3. MAIN CONTENT */}
+      <main className="flex-1 overflow-y-auto bg-[#FFFDF2] dark:bg-[#121212] pt-20 md:pt-0">
+        <div className="max-w-4xl mx-auto w-full px-5 py-8 md:px-12 md:py-16">
+          <article className="prose prose-neutral dark:prose-invert max-w-none">
             {children}
           </article>
 
-          {/* NEXT/PREV NAVIGATION BUTTONS */}
-          <footer className="mt-20 pt-10 border-t border-border flex justify-between items-center pb-20">
-            {prevPage ? (
+          {/* PREV/NEXT FOOTER */}
+          <footer className="mt-20 pt-8 border-t-4 border-foreground flex flex-col sm:flex-row justify-between gap-6 pb-28">
+            {prevPage && (
               <Link
                 href={prevPage.href}
-                className="group flex flex-col items-start gap-1 p-5 rounded-2xl hover:bg-muted transition-all border border-transparent hover:border-border"
+                className="flex-1 p-6 border-2 border-foreground rounded-2xl bg-white dark:bg-zinc-800 shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] dark:shadow-[5px_5px_0px_0px_rgba(255,255,255,0.1)]"
               >
-                <span className="flex items-center gap-2 text-muted-foreground text-[10px] font-bold uppercase tracking-widest">
-                  <ArrowLeft size={14} /> Previous
-                </span>
-                <span className="text-xl font-pixel uppercase">
+                <div className="text-[11px] font-black uppercase mb-1 opacity-60">
+                  ←{" "}
+                </div>
+                <div className="font-bold text-xl uppercase">
                   {prevPage.title}
-                </span>
+                </div>
               </Link>
-            ) : (
-              <div />
             )}
-
-            {nextPage ? (
+            {nextPage && (
               <Link
                 href={nextPage.href}
-                className="group flex flex-col items-end gap-1 p-5 rounded-2xl hover:bg-muted transition-all border border-transparent hover:border-border text-right"
+                className="flex-1 p-6 border-2 border-foreground rounded-2xl bg-white dark:bg-zinc-800 shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] dark:shadow-[5px_5px_0px_0px_rgba(255,255,255,0.1)] text-right"
               >
-                <span className="flex items-center gap-2 text-muted-foreground text-[10px] font-bold uppercase tracking-widest">
-                  Next <ArrowRight size={14} />
-                </span>
-                <span className="text-xl font-pixel uppercase">
+                <div className="text-[11px] font-black uppercase mb-1 opacity-60">
+                  {" "}
+                  →
+                </div>
+                <div className="font-bold text-xl uppercase">
                   {nextPage.title}
-                </span>
+                </div>
               </Link>
-            ) : (
-              <div />
             )}
           </footer>
         </div>
       </main>
-      <ChatWidget />
+
+      {/* 4. CHAT LAYER */}
+      <div className="fixed inset-0 pointer-events-none z-[200]">
+        <div className="pointer-events-auto">
+          <ChatWidget />
+        </div>
+      </div>
     </div>
   );
 }

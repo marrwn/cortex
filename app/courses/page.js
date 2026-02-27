@@ -4,6 +4,7 @@ import SpotlightCard from "@/components/SpotlightCard";
 import BubbleMenu from "@/components/BubbleMenu";
 import Link from "next/link";
 import Image from "next/image";
+import Footer from "@/components/Sections/Footer";
 
 const items = [
   {
@@ -39,7 +40,7 @@ const items = [
 const lessons = [
   {
     title: "JavaScript",
-    path: "/js", // The destination URL
+    path: "/javascript", // Updated to point to your first slug in the roadmap
     color: "bg-[#F7DF1E]",
     btnColor: "#F7DF1E",
     img: "/javascript.jpg",
@@ -72,8 +73,9 @@ export default function LessonsPage() {
   const [selectedLesson, setSelectedLesson] = useState(null);
 
   return (
-    <div className="min-h-screen bg-[#FFFDF2] py-16 px-4">
-      <div className="max-w-5xl mx-auto">
+    // pb-40 adds significant space at the bottom before the footer
+    <div className="min-h-screen bg-[#FFFDF2] pt-16 pb-40 px-4 flex flex-col relative">
+      <div className="max-w-5xl mx-auto w-full flex-grow">
         <BubbleMenu
           logo={
             <span style={{ fontWeight: 700 }}>
@@ -86,8 +88,17 @@ export default function LessonsPage() {
           useFixedPosition={true}
         />
 
-        {/* 1. THE GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center">
+        <div className="text-center mb-16">
+          <h1 className="font-pixel text-5xl uppercase tracking-tighter text-black mb-4">
+            Classrooms
+          </h1>
+          <p className="font-bold opacity-50 uppercase text-xs tracking-[0.2em]">
+            Select a module to begin your journey
+          </p>
+        </div>
+
+        {/* 1. THE GRID (Added mb-24 to push away from the bottom) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 mt-6 lg:grid-cols-3 gap-10 justify-items-center mb-24">
           {lessons.map((lesson, idx) => (
             <SpotlightCard
               key={idx}
@@ -126,7 +137,7 @@ export default function LessonsPage() {
 
       {/* 2. THE POP-UP */}
       {selectedLesson && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
           <div className="relative flex flex-col md:flex-row w-full max-w-[800px] bg-white border-4 border-black rounded-[40px] shadow-[15px_15px_0px_0px_rgba(0,0,0,1)] overflow-hidden animate-in zoom-in-95 duration-200">
             <div className="w-full md:w-1/2 aspect-video md:aspect-auto border-b-4 md:border-b-0 md:border-r-4 border-black overflow-hidden">
               <img
@@ -156,7 +167,6 @@ export default function LessonsPage() {
                 </p>
               </div>
 
-              {/* REDIRECT BUTTON */}
               <Link href={selectedLesson.path} className="w-full">
                 <button
                   style={{ backgroundColor: selectedLesson.btnColor }}
@@ -169,6 +179,9 @@ export default function LessonsPage() {
           </div>
         </div>
       )}
+
+      {/* Footer is now visually separated */}
+      <Footer />
     </div>
   );
 }

@@ -1,0 +1,56 @@
+import { CortexCallout } from "@/components/LessonUI/CortexCallout";
+import { ConceptCard } from "@/components/LessonUI/ConceptCard";
+import { Playground } from "@/components/LessonUI/Playground";
+import CodeBlock from "@/components/LessonUI/CodeBlock";
+import AnalogyCard from "@/components/LessonUI/AnalogyCard";
+import  VideoEmbed  from "@/components/LessonUI/VideoEmbed";
+
+# 1. Your First Variable 📦
+
+A variable is created in **three steps**:
+
+<CodeBlock
+  fileName="first-variable.js"
+  code={`//  keyword   name      value
+//    ↓        ↓          ↓
+    let     myName  =  "Ahmed";
+    
+// Now "myName" is a jar labeled "myName" containing "Ahmed"
+console.log(myName); // Ahmed`}
+/>
+
+That's it. **Keyword → Name → Value.** Let's break down each part.
+
+### Try It — Create Your Own Jars 👇
+
+<Playground
+  config={{
+    id: "first-variable",
+    template: "vanilla",
+    icon: "📦",
+    description: "Your First Variables",
+    mainFile: "/index.js",
+    files: {
+      "/index.js": `// 🎯 Task 1: Create a variable called "myCity" and store your city name
+let myCity = "???";
+console.log(myCity);
+
+// 🎯 Task 2: Create a variable for your age
+let myAge = 0;
+console.log("I am", myAge, "years old");
+
+// 🎯 Task 3: Create a variable for your favorite food
+let favoriteFood = "???";
+console.log("I love", favoriteFood);
+
+// 🎯 Task 4: Create a variable with a number — how many governorates does Egypt have?
+let governorates = 0;
+console.log("Egypt has", governorates, "governorates");
+
+// 🎯 Task 5: Create THREE more variables about yourself — anything you want!
+// Your code here...`
+    }
+  }}
+/>
+
+---

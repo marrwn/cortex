@@ -1,51 +1,32 @@
-import { NextResponse } from "next/server";
+import { createZhipu } from "zhipu-ai-provider";
+import { streamText } from "ai";
+
+const zhipu = createZhipu({
+  apiKey: process.env.ZHIPU_API_KEY,
+  baseURL: "https://api.z.ai/api/paas/v4",
+});
+
+export const runtime = "edge";
 
 export async function POST(req) {
   try {
     const { messages } = await req.json();
 
-    if (!process.env.ZAI_API_KEY) {
-      console.error("❌ ZAI_API_KEY missing");
-      return NextResponse.json({ error: "API Key Missing" }, { status: 500 });
-    }
+    const result = await streamText({
+      model: zhipu("glm-4-flashx-250414"),
+      // SYSTEM ROLE INJECTION
+      system: `You are Cortex AI, a high-performance, intelligent assistant integrated into this platform.
+      Your personality is professional, slightly witty, and highly efficient.
+      Keep your answers concise and scannable. Use Markdown for formatting.
+      Never mention you are a 'language model' unless specifically asked—you are simply Cortex.`,
+      messages,
+    });
 
-    const cleanMessages = messages
-      .filter((m) => m.content && m.content.trim() !== "")
-      .map((m) => ({
-        role: m.role || "user",
-        content: m.content,
-      }));
-
-    const response = await fetch(
-      "https://open.bigmodel.cn/api/paas/v4/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.ZAI_API_KEY}`,
-        },
-        body: JSON.stringify({
-          model: "glm-4-flash", // Try "glm-4" or "glm-4-flash" or "glm-4-0520"
-          messages: [
-            { role: "system", content: "You are Cortex AI." },
-            ...cleanMessages,
-          ],
-        }),
-      },
-    );
-
-    const data = await response.json();
-
-    if (data.error) {
-      console.error("❌ Zhipu API Error Detail:", data.error);
-      return NextResponse.json({ error: data.error.message }, { status: 500 });
-    }
-
-    return NextResponse.json(data.choices[0].message);
+    return result.toTextStreamResponse();
   } catch (error) {
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 },
-    );
+    console.error("Cortex API Error:", error);
+    return new Response(JSON.stringify({ error: "Failed to fetch AI" }), {
+      status: 500,
+    });
   }
 }

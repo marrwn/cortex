@@ -1,0 +1,83 @@
+import { CortexCallout } from "@/components/LessonUI/CortexCallout";
+import { ConceptCard } from "@/components/LessonUI/ConceptCard";
+import { Playground } from "@/components/LessonUI/Playground";
+import CodeBlock from "@/components/LessonUI/CodeBlock";
+import AnalogyCard from "@/components/LessonUI/AnalogyCard";
+import  VideoEmbed  from "@/components/LessonUI/VideoEmbed";
+
+# 2. Different Types of Messages 📊
+
+`console.log()` isn't the only way to talk. JavaScript gives you **different voices** for different situations.
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+  <ConceptCard
+    category="Normal"
+    title="console.log()"
+    description="Regular message. Like texting a friend. Use it for general output and debugging."
+  />
+  <ConceptCard
+    category="Danger"
+    title="console.error()"
+    description="Error message (shows in red). Like a fire alarm 🚨. Use it when something goes WRONG."
+  />
+  <ConceptCard
+    category="Caution"
+    title="console.warn()"
+    description="Warning message (shows in yellow). Like a yellow traffic light ⚠️. Something might be wrong."
+  />
+</div>
+
+<CodeBlock
+  fileName="message-types.js"
+  code={`// Normal message — just information
+console.log("Order received: 2x Koshari");
+
+// Warning — something is off but not broken
+console.warn("⚠️ Low stock: Only 3 Koshari bowls left!");
+
+// Error — something is WRONG
+console.error("❌ Payment failed! Card declined.");
+
+// Table — display organized data beautifully
+console.table(["Koshari", "Foul", "Taameya", "Molokhia"]);`}
+/>
+
+# Practice: The Restaurant Alert System 👇
+
+<Playground
+  config={{
+    id: "restaurant-alerts",
+    template: "vanilla",
+    icon: "🍽️",
+    description: "Log, Warn, Error, and Table",
+    mainFile: "/index.js",
+    files: {
+      "/index.js": `// You're building an alert system for "Gad Restaurant" 🍽️
+
+// 🎯 Task 1: Log a normal order confirmation
+console.log("✅ Order #101: 1x Foul, 2x Taameya");
+
+// 🎯 Task 2: Warn that a menu item is almost sold out
+console.warn("Your warning here");
+
+// 🎯 Task 3: Show an error — the kitchen is closed!
+console.error("Your error here");
+
+// 🎯 Task 4: Display the full menu as a table
+console.table(["Foul", "Taameya", "Shakshuka", "Feteer"]);
+
+// 🎯 Task 5: Display this object as a table
+console.table({
+  item: "Koshari",
+  price: 25,
+  size: "Large"
+});
+
+// 🎯 BONUS: Create 3 more messages — 
+// one log, one warn, one error — about a delivery app
+// Your code here...`
+    }
+  }}
+/>
+
+---

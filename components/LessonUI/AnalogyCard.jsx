@@ -6,7 +6,7 @@ const AnalogyCard = ({ title, children, emoji, color = "#B191FF" }) => (
     <div className="absolute -top-2 -right-2 text-4xl opacity-20 rotate-12">
       {emoji}
     </div>
-    <h4 className="font-pixel text-xl uppercase mb-3 flex items-center gap-2">
+    <h4 className="font-pixel text-xl text-black uppercase mb-3 flex items-center gap-2">
       {emoji} {title}
     </h4>
     <div className="font-bold text-black leading-tight">{children}</div>

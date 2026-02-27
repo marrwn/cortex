@@ -1,165 +1,197 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
-import ReactMarkdown from "react-markdown";
-import { X, Send } from "lucide-react";
+import { useState, useEffect, useMemo } from "react";
+import { useTheme } from "next-themes";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Sun,
+  Moon,
+  ArrowLeft,
+  ArrowRight,
+  Menu,
+  X,
+} from "lucide-react";
+import SyllabusItem from "@/components/SyllabusItem.jsx";
+import ChatWidget from "@/components/ChatWidget";
 
-export default function ChatModal({ isOpen, onClose }) {
-  const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const scrollRef = useRef(null);
+export default function LearnLayoutClient({ children, syllabusData = [] }) {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
-  // Auto-scroll to bottom on new messages
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages, isLoading]);
+  useEffect(() => setMounted(true), []);
+  useEffect(() => setIsMobileMenuOpen(false), [pathname]);
 
-  if (!isOpen) return null;
-
-  const sendMessage = async () => {
-    if (!input.trim()) return;
-
-    const userMsg = { role: "user", content: input.trim() };
-    const currentHistory = [...messages, userMsg];
-
-    setMessages(currentHistory);
-    setInput("");
-    setIsLoading(true);
-
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: currentHistory }),
+  const pages = useMemo(() => {
+    const flat = [];
+    const flatten = (items) => {
+      if (!Array.isArray(items)) return;
+      items.forEach((item) => {
+        if (item?.href) flat.push({ title: item.title, href: item.href });
+        if (item?.children) flatten(item.children);
       });
+    };
+    flatten(syllabusData);
+    return flat;
+  }, [syllabusData]);
 
-      const data = await res.json();
-      if (data.error) throw new Error(data.error);
+  const normalizedPath = pathname.replace(/\/$/, "");
+  const currentIndex = pages.findIndex(
+    (p) => p.href.replace(/\/$/, "") === normalizedPath,
+  );
+  const prevPage = currentIndex > 0 ? pages[currentIndex - 1] : null;
+  const nextPage =
+    currentIndex < pages.length - 1 ? pages[currentIndex + 1] : null;
 
-      setMessages((prev) => [...prev, data]);
-    } catch (e) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: "**Cortex Error:** Check connection or API status.",
-        },
-      ]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  if (!mounted) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-md p-4 animate-in fade-in duration-200">
-      {/* Main Container - Brutalist DNA */}
-      <div className="w-full max-w-3xl h-[85vh] bg-card border-[4px] border-foreground rounded-[32px] shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] flex flex-col overflow-hidden relative">
-        {/* Header - Forced Purple Background */}
-        <div
-          className="px-6 py-4 border-b-[4px] border-foreground flex justify-between items-center"
-          style={{ backgroundColor: "oklch(0.627 0.265 303.9)" }}
-        >
-          <div className="flex items-center gap-3">
-            <span className="font-black uppercase tracking-tighter text-black italic text-xl">
-              Cortex Intelligence
-            </span>
-          </div>
-          <button
-            onClick={onClose}
-            className="p-1 hover:rotate-90 transition-transform bg-white border-2 border-black rounded-lg shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
-          >
-            <X size={20} className="text-black" strokeWidth={3} />
-          </button>
-        </div>
-
-        {/* Chat Body */}
-        <div
-          ref={scrollRef}
-          className="flex-1 overflow-y-auto bg-background p-6 space-y-8 scrollbar-hide"
-        >
-          {messages.length === 0 && (
-            <div className="h-full flex flex-col items-center justify-center opacity-20 grayscale">
-              <div className="w-16 h-16 border-4 border-foreground bg-primary mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]" />
-              <p className="font-black uppercase text-sm tracking-[0.2em]">
-                System Idle
-              </p>
-            </div>
-          )}
-
-          {messages.map((m, i) => (
-            <div
-              key={i}
-              className={`flex gap-4 ${m.role === "user" ? "flex-row-reverse" : "flex-row"}`}
-            >
-              {/* AI PFP - Block Style */}
-              {m.role === "assistant" && (
-                <div
-                  className="w-10 h-10 flex-shrink-0 border-4 border-foreground shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] overflow-hidden bg-white"
-                  style={{ backgroundColor: "oklch(0.627 0.265 303.9)" }}
-                >
-                  {/* Swap out with your actual image path */}
-                  <img
-                    src="/cortexai.png"
-                    alt="AI"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
-
-              {/* Message Bubble */}
-              <div
-                className={`max-w-[85%] p-4 border-[3px] border-foreground shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-2xl ${
-                  m.role === "user"
-                    ? "text-black font-bold"
-                    : "bg-muted text-foreground"
-                }`}
-                style={
-                  m.role === "user"
-                    ? { backgroundColor: "oklch(0.627 0.265 303.9)" }
-                    : {}
-                }
-              >
-                <article className="prose prose-sm dark:prose-invert max-w-none prose-p:leading-relaxed prose-code:bg-black/20 prose-code:p-1 prose-code:rounded prose-pre:bg-black prose-pre:border-2 prose-pre:border-foreground">
-                  <ReactMarkdown>{m.content}</ReactMarkdown>
-                </article>
-              </div>
-            </div>
-          ))}
-
-          {isLoading && (
-            <div className="flex gap-3 items-center text-xs font-black uppercase text-foreground animate-pulse">
-              <div
-                className="w-3 h-3 border-2 border-foreground shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
-                style={{ backgroundColor: "oklch(0.627 0.265 303.9)" }}
-              />
-              Cortex is thinking...
-            </div>
-          )}
-        </div>
-
-        {/* Input Footer */}
-        <div className="p-6 bg-card border-t-[4px] border-foreground">
-          <div className="relative flex items-center max-w-2xl mx-auto">
-            <input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-              placeholder="Query the Cortex..."
-              className="w-full p-4 pr-16 bg-background border-[3px] border-foreground rounded-xl font-bold text-sm outline-none focus:ring-4 ring-foreground/10 transition-all placeholder:text-foreground/30"
+    <div className="flex flex-col md:flex-row h-[100dvh] w-screen overflow-hidden bg-background text-foreground transition-colors duration-300">
+      {/* MOBILE HEADER - Gone when menu is open */}
+      {!isMobileMenuOpen && (
+        <header className="md:hidden flex items-center justify-between p-4 border-b-4 border-foreground bg-card z-[50] shrink-0">
+          <Link href="/">
+            <Image
+              src={theme === "dark" ? "/cortex2.svg" : "/cortex.svg"}
+              alt="Cortex"
+              width={80}
+              height={24}
             />
-            <button
-              onClick={sendMessage}
-              disabled={isLoading || !input.trim()}
-              className="absolute right-3 p-2 border-[3px] border-foreground rounded-lg shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-1px] active:translate-y-[1px] active:shadow-none transition-all disabled:opacity-30"
-              style={{ backgroundColor: "oklch(0.627 0.265 303.9)" }}
-            >
-              <Send size={20} className="text-black" />
-            </button>
+          </Link>
+          <button
+            onClick={() => setIsMobileMenuOpen(true)}
+            className="p-2 border-2 border-foreground rounded-lg shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
+            style={{ backgroundColor: "oklch(0.627 0.265 303.9)" }}
+          >
+            <Menu size={20} color="black" strokeWidth={3} />
+          </button>
+        </header>
+      )}
+
+      {/* SIDEBAR */}
+      <aside
+        className={`
+          fixed md:relative inset-y-0 left-0 z-[100] bg-card border-r-4 border-foreground flex flex-col h-full transition-all duration-300
+          ${isMobileMenuOpen ? "translate-x-0 w-[85%] sm:w-80" : "-translate-x-full md:translate-x-0"}
+          ${isCollapsed ? "md:w-20" : "md:w-80"}
+        `}
+      >
+        {/* Logo Area */}
+        <div className="flex h-20 items-center justify-center border-b-2 border-foreground/10 shrink-0 px-2">
+          <Link href="/">
+            <Image
+              src={theme === "dark" ? "/cortex2.svg" : "/cortex.svg"}
+              alt="Cortex"
+              width={isCollapsed ? 30 : 130}
+              height={30}
+            />
+          </Link>
+        </div>
+
+        {/* CONTENT TABS - Only render if NOT collapsed */}
+        {!isCollapsed && (
+          <div className="flex-1 overflow-y-auto p-4 pt-8 space-y-4 scrollbar-hide">
+            {syllabusData.map((item, i) => (
+              <SyllabusItem key={i} item={item} />
+            ))}
           </div>
+        )}
+
+        {/* FOOTER BUTTONS - Theme on top of Collapse when vertical */}
+        <div
+          className={`
+          p-4 border-t-4 border-foreground bg-card flex gap-3 shrink-0
+          ${isCollapsed ? "flex-col" : "flex-row"} items-center
+        `}
+        >
+          {/* Theme Button (Top/Left) */}
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="w-full h-12 border-2 border-foreground rounded-xl flex items-center justify-center bg-background shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:shadow-none"
+          >
+            {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
+
+          {/* Collapse Button (Bottom/Right) */}
+          <button
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className="hidden md:flex w-full h-12 border-2 border-foreground rounded-xl items-center justify-center bg-background shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] active:shadow-none"
+          >
+            {isCollapsed ? (
+              <ChevronRight size={20} />
+            ) : (
+              <ChevronLeft size={20} />
+            )}
+          </button>
+
+          {/* Mobile Close */}
+          {isMobileMenuOpen && (
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="md:hidden w-full h-12 border-2 border-foreground rounded-xl flex items-center justify-center bg-background shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
+            >
+              <X size={20} />
+            </button>
+          )}
+        </div>
+      </aside>
+
+      {/* MAIN CONTENT - Only this part scrolls */}
+      <main className="flex-1 overflow-y-auto bg-background h-full">
+        <div className="max-w-4xl mx-auto w-full px-5 py-8 md:px-12 md:py-16">
+          <article className="prose prose-neutral dark:prose-invert max-w-none">
+            {children}
+          </article>
+
+          <footer className="mt-20 pt-8 border-t-4 border-foreground flex flex-col sm:flex-row justify-between gap-6 pb-28">
+            {prevPage && (
+              <Link
+                href={prevPage.href}
+                className="group flex-1 p-5 border-2 border-foreground rounded-2xl bg-card shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] transition-all"
+              >
+                <span className="text-[10px] font-black uppercase text-muted-foreground flex items-center gap-2 mb-1">
+                  <ArrowLeft size={12} /> Previous
+                </span>
+                <div className="font-pixel text-lg leading-tight uppercase">
+                  {prevPage.title}
+                </div>
+              </Link>
+            )}
+            {nextPage && (
+              <Link
+                href={nextPage.href}
+                className="group flex-1 p-5 border-2 border-foreground rounded-2xl bg-card shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-right hover:translate-y-[-2px] transition-all"
+              >
+                <span className="text-[10px] font-black uppercase text-muted-foreground flex items-center justify-end gap-2 mb-1">
+                  Next <ArrowRight size={12} />
+                </span>
+                <div className="font-pixel text-lg leading-tight uppercase">
+                  {nextPage.title}
+                </div>
+              </Link>
+            )}
+          </footer>
+        </div>
+      </main>
+
+      {/* CHAT OVERRIDE */}
+      <div className="fixed inset-0 pointer-events-none z-[200]">
+        <div className="pointer-events-auto h-full w-full">
+          <ChatWidget />
         </div>
       </div>
+
+      {isMobileMenuOpen && (
+        <div
+          className="md:hidden fixed inset-0 bg-black/40 backdrop-blur-sm z-[90]"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
     </div>
   );
 }

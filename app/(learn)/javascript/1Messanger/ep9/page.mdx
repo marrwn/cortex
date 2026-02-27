@@ -1,0 +1,51 @@
+import { CortexCallout } from "@/components/LessonUI/CortexCallout";
+import { ConceptCard } from "@/components/LessonUI/ConceptCard";
+import { Playground } from "@/components/LessonUI/Playground";
+import CodeBlock from "@/components/LessonUI/CodeBlock";
+import AnalogyCard from "@/components/LessonUI/AnalogyCard";
+import  VideoEmbed  from "@/components/LessonUI/VideoEmbed";
+
+# Chapter 1 Cheat Sheet 📋
+
+<div className="bg-[#FFF9C4] border-4 border-black p-8 rounded-[40px] my-12 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
+  <h3 className="font-pixel text-2xl uppercase mb-6">Quick Reference 📌</h3>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <p className="font-bold mb-2">🗣️ Output</p>
+      <p className="text-sm mb-1"><code>console.log("text")</code> → normal message</p>
+      <p className="text-sm mb-1"><code>console.warn("text")</code> → yellow warning</p>
+      <p className="text-sm mb-1"><code>console.error("text")</code> → red error</p>
+      <p className="text-sm mb-4"><code>console.table(data)</code> → pretty table</p>
+      <p className="font-bold mb-2">📝 Comments</p>
+      <p className="text-sm mb-1"><code>{"// single line"}</code></p>
+      <p className="text-sm"><code>{"/* multi line */"}</code></p>
+    </div>
+    <div>
+      <p className="font-bold mb-2">🧮 Arithmetic</p>
+      <p className="text-sm mb-1"><code>+</code> Add  <code>-</code> Subtract</p>
+      <p className="text-sm mb-1"><code>*</code> Multiply  <code>/</code> Divide</p>
+      <p className="text-sm mb-1"><code>%</code> Remainder  <code>**</code> Power</p>
+      <p className="text-sm mb-4"><code>()</code> Group operations first</p>
+      <p className="font-bold mb-2">🧩 String Concatenation</p>
+      <p className="text-sm mb-1"><code>"Hello " + "World"</code> → <code>"Hello World"</code></p>
+      <p className="text-sm"><code>"Price: " + (5 + 3)</code> → <code>"Price: 8"</code></p>
+    </div>
+  </div>
+</div>
+
+<CortexCallout type="info">
+  **Chapter 1 Complete!** 🎉 You can now talk to the machine, leave yourself notes, 
+  do math, and build structured output. In **Chapter 2**, we'll learn about **variables** — 
+  how to save your data in labeled boxes so you can reuse it. See you there!
+</CortexCallout>
+
+# 📺 Want to See This in Action?
+
+Watch this video to see how JavaScript runs in the browser console and how developers use `console.log` in real projects.
+
+<VideoEmbed
+  id="W6NZfCO5SIk"
+  title="JavaScript Console & Runtime Explained"
+/>
+
+---

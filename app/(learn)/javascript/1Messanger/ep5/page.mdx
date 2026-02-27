@@ -1,0 +1,78 @@
+import { CortexCallout } from "@/components/LessonUI/CortexCallout";
+import { ConceptCard } from "@/components/LessonUI/ConceptCard";
+import { Playground } from "@/components/LessonUI/Playground";
+import CodeBlock from "@/components/LessonUI/CodeBlock";
+import AnalogyCard from "@/components/LessonUI/AnalogyCard";
+import  VideoEmbed  from "@/components/LessonUI/VideoEmbed";
+
+# 5. String Concatenation: Glueing Text Together 🧩
+
+You can **combine text and numbers** using the `+` operator with strings.
+
+<AnalogyCard title="Beads on a String" emoji="📿" color="#87CEEB">
+  Think of each piece of text as a **bead**. The `+` operator is the **thread**
+  that connects them together into one necklace. `"أحمد"` + `" "` + `"علي"` = `"أحمد علي"`
+</AnalogyCard>
+
+<CodeBlock
+  fileName="concatenation.js"
+  code={`// Combining strings
+console.log("Hello" + " " + "World");  // Hello World
+console.log("أهلاً" + " " + "يا" + " " + "صاحبي"); // أهلاً يا صاحبي
+
+// Combining strings with numbers
+console.log("Price: " + 25 + " LE");    // Price: 25 LE
+console.log("Age: " + 20);              // Age: 20
+
+// ⚠️ WATCH OUT — the order matters!
+console.log(5 + 3 + " LE");     // "8 LE"  — math first, then string
+console.log("Total: " + 5 + 3); // "Total: 53" — string mode, so 5 and 3 become text!
+console.log("Total: " + (5 + 3)); // "Total: 8" — parentheses fix it!`}
+/>
+
+<CortexCallout type="warning">
+  **The `+` Trap:** When `+` sees a string on either side, it switches to **"glue mode"**
+  and treats everything as text. `"5" + 3` = `"53"` not `8`!
+  Use **parentheses** around math to force calculation first: `"Total: " + (5 + 3)` = `"Total: 8"`.
+</CortexCallout>
+
+# Practice: The Message Builder 👇
+
+<Playground
+  config={{
+    id: "message-builder",
+    template: "vanilla",
+    icon: "💬",
+    description: "Build Messages with +",
+    mainFile: "/index.js",
+    files: {
+      "/index.js": `// 🎯 Task 1: Print "Welcome to Cairo, Ahmed!"
+// Use + to combine the pieces
+console.log("Welcome to " + "???" + ", " + "???" + "!");
+
+// 🎯 Task 2: A Koshari bowl costs 25 LE, you buy 3.
+// Print: "3 x Koshari = 75 LE"
+console.log("???" + " x Koshari = " + "???" + " LE");
+
+// 🎯 Task 3: Fix this broken code!
+// It should print "Total: 30" but it prints "Total: 1515"
+console.log("Total: " + 15 + 15);
+
+// 🎯 Task 4: Build a full sentence using ONLY concatenation
+// Output: "My name is [NAME], I am [AGE] years old, from [CITY]."
+console.log("Your sentence here");
+
+// 🎯 Task 5: What does this print? GUESS first!
+console.log(10 + 20 + "30" + 40 + 50);
+// Your guess: ???
+// Explanation: ???
+
+// 🎯 Task 6: Print a "receipt line" that looks like this:
+// Shawarma        x2        90 LE
+// Hint: use spaces to align things
+console.log("Your receipt line here");`
+    }
+  }}
+/>
+
+---

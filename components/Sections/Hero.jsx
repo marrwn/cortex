@@ -29,7 +29,7 @@ export default function Hero() {
       {/* 2. THE CONTENT LAYER */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full">
         <h1 className="text-black text-7xl font-bold text-center">
-          Learn Programming
+          Learn Coding
         </h1>
         <RotatingText
           texts={["Effectively", "Better", "Right"]}

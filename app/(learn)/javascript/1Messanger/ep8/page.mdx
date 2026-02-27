@@ -1,0 +1,173 @@
+import { CortexCallout } from "@/components/LessonUI/CortexCallout";
+import { ConceptCard } from "@/components/LessonUI/ConceptCard";
+import { Playground } from "@/components/LessonUI/Playground";
+import CodeBlock from "@/components/LessonUI/CodeBlock";
+import AnalogyCard from "@/components/LessonUI/AnalogyCard";
+import  VideoEmbed  from "@/components/LessonUI/VideoEmbed";
+
+# 🏆 Final Boss: The Grocery Receipt
+
+<CortexCallout type="warning">
+  **The Challenge:** You went to **"سوبر ماركت أولاد رجب"** and bought some groceries. 
+  Build a **complete receipt** in the console using EVERYTHING you learned in this chapter: 
+  `console.log`, `console.table`, comments, arithmetic, concatenation, and multi-line output.
+</CortexCallout>
+
+Here's what your receipt should look like:
+
+<CodeBlock
+  fileName="receipt-goal.txt"
+  code={`╔═══════════════════════════════════╗
+║     أولاد رجب - Awlad Ragab      ║
+║     📍 Nasr City, Cairo           ║
+║     📅 2025-01-15                 ║
+╚═══════════════════════════════════╝
+
+Item              Qty    Price
+─────────────────────────────────
+Rice (1kg)         2      30 LE
+Cooking Oil        1      85 LE
+Sugar (1kg)        3      45 LE
+Tea (Pack)         1      65 LE
+Bread              5      5 LE
+─────────────────────────────────
+Subtotal:                230 LE
+Tax (14%):               32.2 LE
+Total:                   262.2 LE
+
+Thank you for shopping with us! 🛒`}
+/>
+
+### Your Turn — Build The Receipt 👇
+
+<Playground
+  config={{
+    id: "final-receipt",
+    template: "vanilla",
+    icon: "🧾",
+    description: "The Final Receipt Challenge",
+    mainFile: "/index.js",
+    files: {
+      "/index.js": `/*
+  🏆 FINAL BOSS: The Grocery Receipt
+  
+  Requirements:
+  1. Print a store header with the name and location
+  2. List at least 5 items with quantities and prices
+  3. Calculate the subtotal using MATH (don't hardcode it!)
+  4. Calculate 14% tax
+  5. Calculate the final total
+  6. Use console.table for the items
+  7. Use comments to explain your code
+  8. Make it look PRETTY!
+  
+  Hint: Use the receipt above as a guide,
+  but make it YOUR grocery list!
+*/
+
+// ============ STORE HEADER ============
+// Your code here — print the store name and info
+
+console.log("╔═══════════════════════════════════╗");
+// Continue the header...
+
+// ============ ITEMS ============
+// Define prices (use math!)
+// Example: Rice costs 15 LE per kg, you bought 2
+
+// Item prices
+// let rice = ???
+// let oil = ???
+// ... add more items
+
+// Display items as a table
+// console.table([...]);
+
+// ============ CALCULATIONS ============
+// Subtotal = all items added together (USE MATH, not a hardcoded number!)
+// let subtotal = rice + oil + ...
+
+// Tax = subtotal * 0.14
+// let tax = ???
+
+// Total = subtotal + tax
+// let total = ???
+
+// ============ TOTALS ============
+// Print the subtotal, tax, and total
+
+// ============ FOOTER ============
+// Print a thank you message
+
+// 🎯 BONUS: Use console.warn if the total is over 500 LE
+// 🎯 BONUS: Use console.error if any item costs more than 100 LE`
+    }
+  }}
+/>
+
+---
+
+### Need a Hint? Here's a Starter 🤫
+
+Only look at this **after** you've tried for at least 10 minutes!
+
+<Playground
+  config={{
+    id: "receipt-hint",
+    template: "vanilla",
+    icon: "💡",
+    description: "Receipt Starter (Hint)",
+    mainFile: "/index.js",
+    files: {
+      "/index.js": `/*
+  💡 HINT VERSION — Don't copy this directly!
+  Understand it, then build YOUR OWN version.
+*/
+
+// === Header ===
+console.log("╔═══════════════════════════════════╗");
+console.log("║     أولاد رجب - Awlad Ragab      ║");
+console.log("║     📍 Nasr City, Cairo           ║");
+console.log("╚═══════════════════════════════════╝");
+console.log(""); // empty line for spacing
+
+// === Items (use math for each!) ===
+// price per unit × quantity = line total
+const rice = 15 * 2;       // 30 LE
+const oil = 85 * 1;        // 85 LE  
+const sugar = 15 * 3;      // 45 LE
+const tea = 65 * 1;        // 65 LE
+const bread = 1 * 5;       // 5 LE
+
+// Display as a table
+console.table([
+  { item: "Rice (1kg)", qty: 2, price: rice + " LE" },
+  { item: "Cooking Oil", qty: 1, price: oil + " LE" },
+  { item: "Sugar (1kg)", qty: 3, price: sugar + " LE" },
+  { item: "Tea (Pack)", qty: 1, price: tea + " LE" },
+  { item: "Bread", qty: 5, price: bread + " LE" }
+]);
+
+// === Calculations ===
+const subtotal = rice + oil + sugar + tea + bread;
+const tax = subtotal * 0.14;
+const total = subtotal + tax;
+
+// === Print Totals ===
+console.log("─────────────────────────────────");
+console.log("Subtotal:  " + subtotal + " LE");
+console.log("Tax (14%): " + tax + " LE");
+console.log("Total:     " + total + " LE");
+console.log("─────────────────────────────────");
+
+// === Warnings ===
+if (total > 500) {
+  console.warn("⚠️ Big spender! Total exceeds 500 LE!");
+}
+
+console.log("\\nThank you for shopping with us! 🛒");`
+    }
+  }}
+/>
+
+---

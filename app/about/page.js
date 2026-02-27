@@ -2,6 +2,7 @@
 import BubbleMenu from "@/components/BubbleMenu";
 import Link from "next/link";
 import Image from "next/image";
+import Footer from "@/components/Sections/Footer";
 
 const items = [
   {
@@ -262,11 +263,7 @@ export default function AboutPage() {
         </div>
 
         {/* --- FOOTER --- */}
-        <footer className="text-center pb-20">
-          <p className="font-pixel text-neutral-400 text-[10px] uppercase">
-            C_RTX // Cairo Archive // No Rights Reserved
-          </p>
-        </footer>
+        <Footer />
       </div>
     </div>
   );

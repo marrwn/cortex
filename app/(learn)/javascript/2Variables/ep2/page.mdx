@@ -1,0 +1,155 @@
+import { CortexCallout } from "@/components/LessonUI/CortexCallout";
+import { ConceptCard } from "@/components/LessonUI/ConceptCard";
+import { Playground } from "@/components/LessonUI/Playground";
+import CodeBlock from "@/components/LessonUI/CodeBlock";
+import AnalogyCard from "@/components/LessonUI/AnalogyCard";
+import  VideoEmbed  from "@/components/LessonUI/VideoEmbed";
+
+# 2. `let` vs `const` — The Two Jars 🏺
+
+JavaScript gives you **two** keywords to create variables. Choosing the right one matters.
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+  <ConceptCard
+    category="Changeable"
+    title="let — The Whiteboard"
+    description="The value CAN be changed later. Use it for things that update: scores, temperatures, counts, user input."
+  />
+  <ConceptCard
+    category="Permanent"
+    title="const — The Engraved Plate"
+    description="The value CANNOT be reassigned. Use it for things that stay fixed: birth year, country code, tax rate, PI."
+  />
+</div>
+
+<AnalogyCard title="Whiteboard vs. Engraved Plate" emoji="📋" color="#90EE90">
+  **`let`** is like a **whiteboard** in your classroom. The teacher writes today's date every morning, 
+  erases it the next day, and writes the new one. The board stays — the content changes.
+  
+  **`const`** is like your **name engraved on a trophy**. Once it's carved, you can't erase it. 
+  Your name doesn't change. Your birth year doesn't change. Some things are just **permanent**.
+</AnalogyCard>
+
+<CodeBlock
+  fileName="let-vs-const.js"
+  code={`// === let: the value CAN change ===
+let mood = "happy";
+console.log(mood);    // happy
+
+mood = "excited";     // ✅ Totally fine!
+console.log(mood);    // excited
+
+mood = "tired";       // ✅ Change it again, no problem
+console.log(mood);    // tired
+
+
+// === const: the value CANNOT change ===
+const birthYear = 2003;
+console.log(birthYear);  // 2003
+
+// birthYear = 2004;     // ❌ CRASH! TypeError: Assignment to constant variable.
+// You can't change it. 2003 is forever.
+
+
+// === Real-world examples ===
+
+// Things that CHANGE → use let
+let score = 0;           // score goes up as you play
+let temperature = 38;    // weather changes
+let cartTotal = 0;       // total changes as you add items
+
+// Things that DON'T change → use const
+const PI = 3.14159;             // math constant
+const COUNTRY_CODE = "+20";     // Egypt's code is always +20
+const DRINKING_AGE = 18;        // legal age
+const MY_BIRTHDAY = "March 15"; // your birthday never changes`}
+/>
+
+# Practice: Choose Your Weapon 👇
+
+<Playground
+  config={{
+    id: "let-vs-const",
+    template: "vanilla",
+    icon: "⚔️",
+    description: "let or const? You Decide!",
+    mainFile: "/index.js",
+    files: {
+      "/index.js": `// 🎯 For each variable below, decide: should it be LET or CONST?
+// Replace "???" with the correct keyword. Then run to check!
+
+// 1. Your full name (does your name change?)
+??? fullName = "Sara Mohamed";
+console.log("Name:", fullName);
+
+// 2. The current temperature outside (does weather change?)
+??? temperature = 35;
+console.log("Temp:", temperature, "°C");
+temperature = 28; // evening came, it got cooler
+console.log("Temp now:", temperature, "°C");
+
+// 3. The number of pyramids in Giza (does this change?)
+??? pyramidsInGiza = 3;
+console.log("Pyramids:", pyramidsInGiza);
+
+// 4. Your phone battery percentage (does it change?)
+??? battery = 85;
+console.log("Battery:", battery, "%");
+battery = 40;
+console.log("Battery now:", battery, "%");
+
+// 5. The speed of light (does physics change?)
+??? SPEED_OF_LIGHT = 299792458;
+console.log("Speed of light:", SPEED_OF_LIGHT, "m/s");
+
+// 6. Number of items in a shopping cart (does it change?)
+??? itemCount = 0;
+console.log("Cart:", itemCount, "items");
+itemCount = 3;
+console.log("Cart now:", itemCount, "items");
+
+// 7. Your national ID number (does it change?)
+??? nationalID = "29901011234567";
+console.log("ID:", nationalID);
+
+// 8. The current year (next year it will be different — but within this program?)
+??? currentYear = 2025;
+console.log("Year:", currentYear);`
+    }
+  }}
+/>
+
+---
+
+# What About `var`? 👴
+
+You'll see `var` in old code and tutorials. Here's why we **never** use it:
+
+<CodeBlock
+  fileName="var-is-broken.js"
+  code={`// Problem 1: var leaks out of blocks
+if (true) {
+  var leaked = "I escaped! 🏃";
+  let contained = "I stayed inside 🔒";
+}
+console.log(leaked);    // "I escaped! 🏃" — BAD! It should stay inside!
+// console.log(contained); // ❌ ReferenceError — GOOD! let respects boundaries.
+
+// Problem 2: var lets you declare the same name twice
+var playerName = "Ahmed";
+var playerName = "Sara";  // No error — silently overwrites! 💀
+console.log(playerName);  // Sara — where did Ahmed go?!
+
+// With let, JavaScript CATCHES the mistake:
+// let score = 10;
+// let score = 20;  // ❌ SyntaxError: 'score' has already been declared`}
+/>
+
+<div className="bg-[#FFE4E1] border-4 border-black p-8 rounded-[40px] my-12 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
+  <h3 className="font-pixel text-xl uppercase mb-4">The Golden Rule 🥇</h3>
+  <p className="font-bold mb-2 text-sm">1. Start with <code>const</code> for everything.</p>
+  <p className="font-bold mb-2 text-sm">2. If you get an error because you're trying to change it → switch to <code>let</code>.</p>
+  <p className="font-bold text-sm">3. Never use <code>var</code>. If you see it in old code, mentally replace it with <code>let</code>.</p>
+</div>
+
+---

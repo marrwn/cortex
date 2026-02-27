@@ -1,0 +1,86 @@
+import { CortexCallout } from "@/components/LessonUI/CortexCallout";
+import { ConceptCard } from "@/components/LessonUI/ConceptCard";
+import { Playground } from "@/components/LessonUI/Playground";
+import CodeBlock from "@/components/LessonUI/CodeBlock";
+import AnalogyCard from "@/components/LessonUI/AnalogyCard";
+import  VideoEmbed  from "@/components/LessonUI/VideoEmbed";
+
+## 3. Comments: Notes to Yourself 📝
+
+Comments are lines that JavaScript **completely ignores**. They're notes for humans, not machines.
+
+<AnalogyCard title="Sticky Notes on Your Code" emoji="📌" color="#FFD700">
+  You know those yellow sticky notes your teacher puts on important pages? 
+  Comments are the same — they help you (and others) understand **why** the code exists. 
+  The computer skips right over them.
+</AnalogyCard>
+
+<CodeBlock
+  fileName="comments.js"
+  code={`// This is a single-line comment
+// JavaScript ignores everything after //
+
+console.log("This runs!"); // You can also comment after code
+
+// console.log("This does NOT run — it's commented out!");
+
+/*
+  This is a multi-line comment.
+  Everything between /* and */ is ignored.
+  Use it for longer explanations.
+  
+  Like a recipe note:
+  Step 1: Boil water
+  Step 2: Add koshari noodles
+  Step 3: Serve with sauce
+*/
+
+console.log("This also runs!");`}
+/>
+
+<CortexCallout type="warning">
+  **When to use comments:**
+  - ✅ Explain **WHY** you did something (not what — the code shows what)
+  - ✅ Temporarily disable code for testing
+  - ✅ Leave TODO notes: `// TODO: fix this later`
+  - ❌ Don't comment obvious things like `// print hello` above `console.log("hello")`
+</CortexCallout>
+
+### Practice: The Comment Detective 👇
+
+<Playground
+  config={{
+    id: "comment-detective",
+    template: "vanilla",
+    icon: "🕵️",
+    description: "Fix the Commented Code",
+    mainFile: "/index.js",
+    files: {
+      "/index.js": `// 🎯 Task 1: Some lines below are commented out.
+// UNCOMMENT the ones that should run, keep the rest commented.
+
+// console.log("Welcome to Egypt! 🇪🇬");
+// console.log("Population: 105 million");
+// console.error("This is NOT an error, uncomment me!");
+// console.log("Capital: Cairo");
+
+// 🎯 Task 2: Comment OUT the line that has a bug
+console.log("The Nile is the longest river in Africa");
+console.log("Egypt has" 27 "governorates");
+console.log("The pyramids are in Giza");
+
+// 🎯 Task 3: Add a multi-line comment below explaining
+// what this code does (pretend you're explaining to a friend)
+console.log("Item: Shawarma");
+console.log("Price: 45 LE");
+console.log("Quantity: 2");
+console.log("Total: 90 LE");
+
+// 🎯 Task 4: Write a TODO comment for something 
+// you'd want to add to this code later
+// Your code here...`
+    }
+  }}
+/>
+
+---
