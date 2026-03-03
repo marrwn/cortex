@@ -255,7 +255,7 @@ export default function AboutPage() {
             "Cortex is an open-source initiative. Found a bug or want to
             translate a course? Our doors are open."
           </p>
-          <a href="https://github.com" className="inline-block">
+          <a href="https://github.com/marrwn/cortex" className="inline-block">
             <button className="border-4 border-black bg-[#a388ee] px-10 py-4 font-pixel text-lg uppercase text-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] rounded-2xl transition-all active:translate-x-1 active:translate-y-1 active:shadow-none hover:bg-[#8e6cf3]">
               OPEN GITHUB
             </button>

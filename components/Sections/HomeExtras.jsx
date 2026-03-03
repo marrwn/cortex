@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { Github, Send, AlertTriangle } from "lucide-react";
+import Link from "next/link";
 
 const HomeExtras = () => {
   return (
@@ -78,10 +79,8 @@ const HomeExtras = () => {
 
           <div className="flex flex-col md:flex-row gap-4 justify-center items-stretch">
             <button className="flex items-center justify-center gap-3 bg-white border-4 border-black px-8 py-4 font-pixel text-xl uppercase text-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all">
-              <Github size={24} /> Follow GitHub
-            </button>
-            <button className="flex items-center justify-center gap-3 bg-[#F7DF1E] border-4 border-black px-8 py-4 font-pixel text-xl uppercase text-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all">
-              <Send size={24} /> Get Notified
+              <Github size={24} />{" "}
+              <Link href="https://github.com/marrwn/cortex">Follow Github</Link>
             </button>
           </div>
         </motion.div>

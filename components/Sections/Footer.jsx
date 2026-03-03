@@ -33,22 +33,10 @@ const Footer = () => {
             </p>
             <div className="flex gap-4">
               <Link
-                href="#"
-                className="p-2 border-2 border-black  bg-[#87ceeb] shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
+                href="https://github.com/marrwn/cortex"
+                className="p-2 border-2 border-black  bg-black text-white shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
               >
                 <Github size={20} />
-              </Link>
-              <Link
-                href="#"
-                className="p-2 border-2 border-black bg-[#87ceeb] shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
-              >
-                <Twitter size={20} />
-              </Link>
-              <Link
-                href="#"
-                className="p-2 border-2 border-black bg-[#ff5f56] shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all"
-              >
-                <Youtube size={20} />
               </Link>
             </div>
           </div>
@@ -69,7 +57,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/learn"
+                  href="/courses"
                   className="hover:text-[#90ee90] flex items-center gap-1 text-black"
                 >
                   Classroom <ArrowUpRight size={14} />
@@ -85,7 +73,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/contribute"
+                  href="https://github.com/marrwn/cortex"
                   className="hover:text-[#ff7a5c] flex items-center gap-1 text-black"
                 >
                   Contribute <ArrowUpRight size={14} />
